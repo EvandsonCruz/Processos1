@@ -48,7 +48,40 @@ public class RedesController {
 		}
 
 		if (so.contains("Linux")) {
-			// comandos linux
+			
+			String comando = "ifconfig";
+			String adap[] = {};
+			String inet[] = {};
+			
+
+			try {
+				Process proc = Runtime.getRuntime().exec(comando);
+				InputStream fluxo = proc.getInputStream();
+				InputStreamReader leitor = new InputStreamReader(fluxo);
+				BufferedReader buffer = new BufferedReader(leitor);
+				String linha = buffer.readLine();
+				while (linha != null) {
+					if (linha.contains("flags")) {
+						adap = linha.split(" ");
+					}
+					if (linha.contains("inet")) {
+						if (adap[0].contains(":")) {
+							System.out.println(adap[0].substring(0, adap[0].length() - 1));
+						}
+						else{
+							System.out.println(adap[0]);
+						}
+						inet = linha.split(" ");
+						System.out.println(inet[1]);
+					}
+					linha = buffer.readLine();
+				}
+			} catch (IOException e) {
+				String erro = e.getMessage();
+				JOptionPane.showMessageDialog(null, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
 		}
+		
 	}
 }
