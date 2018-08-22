@@ -28,11 +28,10 @@ public class RedesController {
 				while (linha != null) {
 					if (linha.contains("Ethernet")) {
 						adap = linha.split(" ");
-
 					}
 					if (linha.contains("IPv4")) {
 						if (adap[2].contains(":")) {
-							System.out.println(adap[2].substring(0, adap[2].length() - 1));
+							System.out.println(adap[2].substring(0,adap[2].length() - 1));
 						} else {
 							System.out.println(adap[2]);
 						}
@@ -42,17 +41,17 @@ public class RedesController {
 				}
 			} catch (IOException e) {
 				String erro = e.getMessage();
-				JOptionPane.showMessageDialog(null, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, erro, "ERRO",
+						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 		}
 
 		if (so.contains("Linux")) {
-			
+
 			String comando = "ifconfig";
 			String adap[] = {};
 			String inet[] = {};
-			
 
 			try {
 				Process proc = Runtime.getRuntime().exec(comando);
@@ -64,24 +63,22 @@ public class RedesController {
 					if (linha.contains("flags")) {
 						adap = linha.split(" ");
 					}
-					if (linha.contains("inet")) {
-						if (adap[0].contains(":")) {
-							System.out.println(adap[0].substring(0, adap[0].length() - 1));
-						}
-						else{
-							System.out.println(adap[0]);
-						}
-						inet = linha.split(" ");
+					if (linha.contains("inet 1")) {
+						
+						inet = linha.trim().split(" ");
+						System.out.println(adap[0].substring(0,adap[0].length() - 1));
 						System.out.println(inet[1]);
+						
 					}
 					linha = buffer.readLine();
 				}
 			} catch (IOException e) {
 				String erro = e.getMessage();
-				JOptionPane.showMessageDialog(null, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, erro, "ERRO",
+						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 }
