@@ -119,7 +119,7 @@ public class RedesController {
 	
 		if (so.contains("Linux")) {
 			DecimalFormat df = new DecimalFormat("0.00");
-			String comando = "ping www.wikihow.com -c 10";
+			String comando = "ping www.google.com.br -c 10";
 			String tempo[] = {};
 			double media=0;
 
