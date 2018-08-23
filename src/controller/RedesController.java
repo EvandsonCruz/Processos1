@@ -81,4 +81,43 @@ public class RedesController {
 		}
 
 	}
+	
+	public static void ping (String so)
+	{
+		if (so.contains("Windows")) {
+			
+		String comando = "ping www.google.com.br -n 10";
+		String tempo[] = {};
+		int media=0;
+
+		try {
+			Process proc = Runtime.getRuntime().exec(comando);
+			InputStream fluxo = proc.getInputStream();
+			InputStreamReader leitor = new InputStreamReader(fluxo);
+			BufferedReader buffer = new BufferedReader(leitor);
+			String linha = buffer.readLine();
+			while (linha != null) {
+				if(linha.contains("Resposta")) {
+				tempo = linha.split(" ");
+				tempo[4] = tempo[4].replaceAll("[^0-9]*", "");
+				System.out.println(tempo[4]+"ms");
+				media = media + (Integer.parseInt(tempo[4]));
+				
+				}
+				linha = buffer.readLine();
+				
+			}
+		} catch (IOException e) {
+			String erro = e.getMessage();
+			JOptionPane.showMessageDialog(null, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
+		System.out.println("Média: " + media/10 + "ms");
+	}
+	
+		if (so.contains("Linux")) {
+			//comandos linux
+		}
+}
 }
