@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 import javax.swing.JOptionPane;
 
@@ -113,11 +114,37 @@ public class RedesController {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Média: " + media/10 + "ms");
+		System.out.println("Mï¿½dia: " + media/10 + "ms");
 	}
 	
 		if (so.contains("Linux")) {
-			//comandos linux
+			DecimalFormat df = new DecimalFormat("0.00");
+			String comando = "ping www.wikihow.com -c 10";
+			String tempo[] = {};
+			double media=0;
+
+			try {
+				Process proc = Runtime.getRuntime().exec(comando);
+				InputStream fluxo = proc.getInputStream();
+				InputStreamReader leitor = new InputStreamReader(fluxo);
+				BufferedReader buffer = new BufferedReader(leitor);
+				String linha = buffer.readLine();
+				while (linha != null) {
+					if(linha.contains("from")) {
+					tempo = linha.split(" ");
+					tempo[7] = tempo[7].replaceAll("[^0-9.]*", "");
+					System.out.println(tempo[7]+"ms");
+					media = media + (Double.parseDouble(tempo[7]));	
+					}
+					linha = buffer.readLine();
+					
+				}
+			} catch (IOException e) {
+				String erro = e.getMessage();
+				JOptionPane.showMessageDialog(null, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
+			System.out.println("Mï¿½dia: " + df.format(media/10) + "ms");
 		}
 }
 }
