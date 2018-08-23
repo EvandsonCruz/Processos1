@@ -114,7 +114,7 @@ public class RedesController {
 			e.printStackTrace();
 		}
 		
-		System.out.println("M�dia: " + media/10 + "ms");
+		System.out.println("Media: " + media/10 + "ms");
 	}
 	
 		if (so.contains("Linux")) {
@@ -144,7 +144,7 @@ public class RedesController {
 				JOptionPane.showMessageDialog(null, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
-			System.out.println("M�dia: " + df.format(media/10) + "ms");
+			System.out.println("Media: " + df.format(media/10) + "ms");
 		}
 }
 }
